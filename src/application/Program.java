@@ -8,24 +8,27 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
+import entities.Employee;
+
 public class Program {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		
-		List<String> list = new ArrayList<>();
+		List<Employee> list = new ArrayList<>();
 		String path = "C:\\temp\\ini.txt";
 		
 		try(BufferedReader br = new BufferedReader(new FileReader(path))){
 			
-			String name = br.readLine();
-			while(name != null) {
-				list.add(name);
-				name = br.readLine();
+			String employeeCsv = br.readLine();
+			while(employeeCsv != null) {
+				String[] fields = employeeCsv.split(",");
+				list.add(new Employee(fields[0], Double.parseDouble(fields[1])));
+				employeeCsv = br.readLine();
 			}
 			Collections.sort(list);
-			for(String s : list) {
-				System.out.println(s);
+			for(Employee emp : list) {
+				System.out.println(emp.getName() + ", " + emp.getSalary());
 			}
 			
 		}
